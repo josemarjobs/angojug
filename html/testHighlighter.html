@@ -1,0 +1,43 @@
+<html>
+<head>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+	<title>testHighlighter</title>
+	<link href="styles/hl/shCore.css" rel="stylesheet" type="text/css" />
+	<link href="styles/hl/shThemeDefault.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+	
+	
+	<!-- Include required JS files -->
+	<script type="text/javascript" src="javascript/hl/shCore.js"></script>
+	 
+	<!--
+	    At least one brush, here we choose JS. You need to include a brush for every 
+	    language you want to highlight
+	-->
+	<script type="text/javascript" src="javascript/hl/shBrushJava.js"></script>
+	
+	 
+	<!-- You also need to add some content to highlight, but that is covered elsewhere. -->
+	<pre class="brush: java">
+	 //stubbing using built-in anyInt() argument matcher
+ when(mockedList.get(anyInt())).thenReturn("element");
+ 
+ //stubbing using hamcrest (let's say isValid() returns your own hamcrest matcher):
+ when(mockedList.contains(argThat(isValid()))).thenReturn("element");
+ 
+ //following prints "element"
+ System.out.println(mockedList.get(999));
+ 
+ //you can also verify using an argument matcher
+ verify(mockedList).get(anyInt());
+	</pre>
+	 
+	<!-- Finally, to actually run the highlighter, you need to include this JS on your page -->
+	<script type="text/javascript">
+	     SyntaxHighlighter.all()
+	</script>
+	
+</body>
+</html>

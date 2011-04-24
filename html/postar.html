@@ -1,0 +1,120 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+	<title>AngoJUG</title>
+	<link rel="stylesheet" href="estilo.css" type="text/css" charset="utf-8" />
+	<script type="text/javascript" src="javascript/tiny_mce/tiny_mce.js"></script>
+	<script type="text/javascript" src="javascript/tiny_mce/tiny_mce_popup.js"></script>
+	<script type="text/javascript" src="javascript/tiny_mce/tiny_mce_src.js"></script>
+</head>
+<body id="corpo">
+	
+	<div id="cabecalho"><!--INICIO CABECALHO-->
+		<div id="topo" class="round"><!--INICIO TOPO-->
+			<div id="logo">
+				<a href="index.html"><img src="images/logo.png" alt="logo" /></a>
+			</div>
+			<div id="direita">
+				<div id="search">
+					<form action="" method="get" accept-charset="utf-8">
+						<input type="text" name="term" value="" id="term" class="term"/>
+						<input class="botao" type="submit" value="Buscar" />
+					</form>
+				</div>
+			</div>
+		</div><!--FIM TOPO-->
+		<div id="barra_horizontal"><!--INICIO BARRAHORIZONTAL-->
+			<div id="menu" class="top_round"><!--INICIO MENU-->
+			<div class="opcoes">
+				<ul>
+					<li><a href="">HOME</a></li>
+					<li><a href="">SOBRE</a></li>
+					<li><a href="">CONTATO</a></li>
+				</ul>
+			</div>
+			<div class="cadastro">
+				<ul>
+					<li class="cadastre-se sombra"><a href="cadastro.html">Cadastre-se</a></li>
+					<li class="login sombra"><a href="login.html">Login</a></li>
+				</ul>
+			</div>
+		</div><!--FIM MENU-->
+	</div><!--FIM BARRAHORIZONTAL-->
+	</div><!--FIM CABECALHO-->
+	
+	<div id="conteudo" class="bottom_round"><!--INICIO CONTEUDO-->
+		
+
+
+
+<script type="text/javascript">
+tinyMCE.init({
+        // General options
+        mode : "textareas",
+        theme : "advanced",
+        plugins : "autolink,lists,spellchecker,pagebreak,style,layer,table,save,advhr,advimage,advlink,emotions,iespell,inlinepopups,insertdatetime,preview,media,searchreplace,print,contextmenu,paste,directionality,fullscreen,noneditable,visualchars,nonbreaking,xhtmlxtras,template",
+		apply_source_formatting : true,
+		
+        // Theme options
+        theme_advanced_buttons1 : "save,newdocument,|,bold,italic,underline,strikethrough,|,justifyleft,justifycenter,justifyright,justifyfull,|,styleselect,formatselect,fontselect,fontsizeselect",
+        theme_advanced_buttons2 : "cut,copy,paste,pastetext,pasteword,|,search,replace,|,bullist,numlist,|,outdent,indent,blockquote,|,undo,redo,|,link,unlink,anchor,image,cleanup,help,code,|,insertdate,inserttime,preview,|,forecolor,backcolor",
+        theme_advanced_buttons3 : "tablecontrols,|,hr,removeformat,visualaid,|,sub,sup,|,charmap,emotions,iespell,media,advhr,|,print,|,ltr,rtl,|,fullscreen",
+        theme_advanced_buttons4 : "insertlayer,moveforward,movebackward,absolute,|,styleprops,spellchecker,|,cite,abbr,acronym,del,ins,attribs,|,visualchars,nonbreaking,template,blockquote,pagebreak,|,insertfile,insertimage",
+        theme_advanced_toolbar_location : "top",
+        theme_advanced_toolbar_align : "left",
+        theme_advanced_statusbar_location : "bottom",
+        theme_advanced_resizing : true,
+        theme_advanced_styles : "Code=codeStyle;Quote=quoteStyle",
+        
+
+        // Skin options
+        skin : "o2k7",
+        skin_variant : "silver",
+
+        // Example content CSS (should be your site CSS)
+        content_css : "css/example.css",
+
+        // Drop lists for link/image/media/template dialogs
+        template_external_list_url : "js/template_list.js",
+        external_link_list_url : "js/link_list.js",
+        external_image_list_url : "js/image_list.js",
+        media_external_list_url : "js/media_list.js",
+
+        // Replace values for the template plugin
+        template_replace_values : {
+                username : "Some User",
+                staffid : "991234"
+        }
+});
+</script>
+
+
+<form method="post" action="post.php">
+        <textarea name="content" style="width:100%; height:500px;"></textarea>
+        <p><input type="submit" name="submit" value="Enviar" id="submit" /></p>
+</form>
+
+
+
+		
+		
+		
+	</div><!--FIM CONTEUDO-->
+	
+	
+	<div id="rodape" class="round"><!--INICIO RODAPE-->
+		<div class="copy">
+		Powered By: <a href="">SoftSystems Corp - &copy; 2011</a>
+		</div>
+	</div><!--FIM RODAPE-->
+</body>
+</html>
+
+
+
+
+
+
+
