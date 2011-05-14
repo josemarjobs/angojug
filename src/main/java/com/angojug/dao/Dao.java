@@ -11,7 +11,7 @@ public interface Dao<T> {
 
 	public void remove(T bean);
 
-	public User get(Serializable id);
+	public User load(Serializable id);
 
 	public void atualizar(T bean);
 

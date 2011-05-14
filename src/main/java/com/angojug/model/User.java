@@ -5,18 +5,38 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Lob;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
+import org.hibernate.validator.constraints.Email;
+
+/**
+ * 
+ * @author josemarjobs
+ * @since 13/05/2011:22:43
+ */
 
 @Entity
 public class User {
 
+//	@NotNull(message = "Não pode ficar vazio")
+//	@Size(min = 3, max = 20, message = "Deve ter mais 3 letras e menos que 20")
+	
 	@Id
 	@GeneratedValue
 	private Long id;
+	
 	@Column(nullable = false)
+	@NotNull(message = "Não pode ficar vazio")
+	@Size(min = 3, max = 50, message = "Deve ter mais 3 letras e menos que 50")
 	private String nome;
 	@Column(nullable = false)
+	@NotNull(message = "Não pode ficar vazio")
+	@Email(message = "Insira um email válido")
 	private String email;
 	@Column(nullable = false)
+	@NotNull(message = "Não pode ficar vazio")
+	@Size(min = 6, max = 15, message = "Deve ter mais 6 letras e menos que 15")
 	private String password;
 
 	private String site;

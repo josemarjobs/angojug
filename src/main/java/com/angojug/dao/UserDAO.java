@@ -6,15 +6,22 @@ import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
-import com.angojug.model.User;
-import com.angojug.util.HibernateUtil;
+import br.com.caelum.vraptor.ioc.Component;
 
+import com.angojug.model.User;
+
+/**
+ * 
+ * @author josemarjobs
+ * @since 13/05/2011:22:43
+ */
+@Component
 public class UserDAO implements Dao<User> {
 
-	private Session session;
+	private final Session session;
 
-	public UserDAO() {
-		session = HibernateUtil.getSessionFactory().openSession();
+	public UserDAO(Session session) {
+		this.session = session;
 	}
 
 	@Override
@@ -32,7 +39,7 @@ public class UserDAO implements Dao<User> {
 	}
 
 	@Override
-	public User get(Serializable id) {
+	public User load(Serializable id) {
 		Transaction tx = session.beginTransaction();
 		User user = (User) session.load(User.class, id);
 		tx.commit();
@@ -44,7 +51,6 @@ public class UserDAO implements Dao<User> {
 		Transaction tx = session.beginTransaction();
 		session.merge(user);
 		tx.commit();
-
 	}
 
 	@Override
