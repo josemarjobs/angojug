@@ -1,6 +1,6 @@
 <div id="lateral" class="bottom_round"><!--INICIO LATERAL-->
 			<div class="gadget_lateral feed">
-				<a href=""><img class="feed" src="images/feed.png" alt="rss feed" /></a>
+				<a href=""><img class="feed" src="<c:url value="/images/feed.png" />" alt="rss feed" /></a>
 			</div>
 			<div class="gadget_lateral"><!--INICIO GADGET LATERAL-->
 				<h1>Últimos Posts</h1>

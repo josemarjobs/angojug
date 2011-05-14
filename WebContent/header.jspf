@@ -15,7 +15,7 @@
 		<div id="cabecalho"><!--INICIO CABECALHO-->
 			<div id="topo" class="round"><!--INICIO TOPO-->
 				<div id="logo">
-					<a href="index.html"><img src="images/logo.png" alt="logo" /></a>
+					<a href="index.html"><img src="<c:url value="/images/logo.png"/>" alt="logo" /></a>
 				</div>
 				<div id="direita">
 					<div id="search">

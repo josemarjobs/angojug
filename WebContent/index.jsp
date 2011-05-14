@@ -1,1 +1,1 @@
-<h3>Bem vindo ao Goodbuy!</h3>
+<h3>Bem vindo ao AngoJUG!</h3>
