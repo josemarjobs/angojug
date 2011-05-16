@@ -3,7 +3,7 @@
 			<%@ include file="menu_lateral.jsp" %>
 		</div>
 		<div id="centro" class="perfil"><!--INICIO CENTRO-->
-			<h1>angoJUG - Tudo sobre Josemar da Costa</h1>
+			<h1>angoJUG - Tudo sobre ${user.nome }</h1>
 			<div id="dados"><!--INICIO DADOS-->
 				<h3>Informações de Registo</h3>
 				<div class="info_do_usuario">

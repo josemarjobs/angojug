@@ -16,26 +16,13 @@ import com.angojug.model.User;
  * @since 13/05/2011:22:43
  */
 @Component
-public class UserDAO implements Dao<User> {
+public class UserDAO extends GenericDAO<User>{
 
 	private final Session session;
 
 	public UserDAO(Session session) {
+		super(session);
 		this.session = session;
-	}
-
-	@Override
-	public void adiciona(User user) {
-		Transaction tx = session.beginTransaction();
-		session.save(user);
-		tx.commit();
-	}
-
-	@Override
-	public void remove(User user) {
-		Transaction tx = session.beginTransaction();
-		session.delete(user);
-		tx.commit();
 	}
 
 	@Override
@@ -46,12 +33,6 @@ public class UserDAO implements Dao<User> {
 		return user;
 	}
 
-	@Override
-	public void atualizar(User user) {
-		Transaction tx = session.beginTransaction();
-		session.merge(user);
-		tx.commit();
-	}
 
 	@Override
 	public List<User> list() {

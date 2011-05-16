@@ -44,7 +44,8 @@ public class UsuariosController {
 		validator.onErrorRedirectTo(this).formulario();
 		// this.result.redirectTo(this).dados();
 		this.dao.adiciona(user);
-		result.include("user", user);
+		//result.include("user", user);
+		this.result.redirectTo(this).dados(user.getId());
 	}
 
 	@Get
@@ -68,14 +69,4 @@ public class UsuariosController {
 	public User dados(Long id) {
 		return this.dao.load(id);
 	}
-
-	//
-	// @Path("/produtos/{produto.id}")
-	// @Restrito
-	// public void altera(Produto produto) {
-	// validator.validate(produto);
-	// validator.onErrorUsePageOf(ProdutosController.class).edita(
-	// produto.getId());
-	// this.dao.atualiza(produto);
-	// this.result.redirectTo(this).lista();
 }

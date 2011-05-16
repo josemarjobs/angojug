@@ -14,5 +14,7 @@
 		<property name="format_sql">true</property>
 
 		<mapping class="com.angojug.model.User" />
+		<mapping class="com.angojug.model.Postagem" />
+		<mapping class="com.angojug.model.Comentario" />
 	</session-factory>
 </hibernate-configuration>

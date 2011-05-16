@@ -19,13 +19,14 @@ import org.hibernate.validator.constraints.Email;
 @Entity
 public class User {
 
-//	@NotNull(message = "Não pode ficar vazio")
-//	@Size(min = 3, max = 20, message = "Deve ter mais 3 letras e menos que 20")
-	
+	// @NotNull(message = "Não pode ficar vazio")
+	// @Size(min = 3, max = 20, message =
+	// "Deve ter mais 3 letras e menos que 20")
+
 	@Id
 	@GeneratedValue
 	private Long id;
-	
+
 	@Column(nullable = false)
 	@NotNull(message = "Não pode ficar vazio")
 	@Size(min = 3, max = 50, message = "Deve ter mais 3 letras e menos que 50")
