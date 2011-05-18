@@ -27,11 +27,11 @@ public class User {
 	@GeneratedValue
 	private Long id;
 
-	@Column(nullable = false)
+	@Column(nullable = false, unique = true)
 	@NotNull(message = "Não pode ficar vazio")
 	@Size(min = 3, max = 50, message = "Deve ter mais 3 letras e menos que 50")
 	private String nome;
-	@Column(nullable = false)
+	@Column(nullable = false, unique = true)
 	@NotNull(message = "Não pode ficar vazio")
 	@Email(message = "Insira um email válido")
 	private String email;

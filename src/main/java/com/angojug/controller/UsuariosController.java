@@ -42,9 +42,7 @@ public class UsuariosController {
 	public void adiciona(final User user) {
 		validator.validate(user);
 		validator.onErrorRedirectTo(this).formulario();
-		// this.result.redirectTo(this).dados();
 		this.dao.adiciona(user);
-		//result.include("user", user);
 		this.result.redirectTo(this).dados(user.getId());
 	}
 
@@ -60,7 +58,6 @@ public class UsuariosController {
 		this.validator.validate(user);
 		this.validator.onErrorUsePageOf(this).edita(user.getId());
 		this.dao.atualizar(user);
-		// this.result.include("user", user);
 		this.result.redirectTo(this).dados(user.getId());
 	}
 
