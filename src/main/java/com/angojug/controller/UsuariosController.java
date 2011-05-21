@@ -1,5 +1,8 @@
 package com.angojug.controller;
 
+import java.util.List;
+
+import br.com.caelum.vraptor.Delete;
 import br.com.caelum.vraptor.Get;
 import br.com.caelum.vraptor.Path;
 import br.com.caelum.vraptor.Post;
@@ -8,6 +11,7 @@ import br.com.caelum.vraptor.Resource;
 import br.com.caelum.vraptor.Result;
 import br.com.caelum.vraptor.Validator;
 
+import com.angojug.IndexController;
 import com.angojug.dao.UserDAO;
 import com.angojug.model.User;
 
@@ -66,4 +70,19 @@ public class UsuariosController {
 	public User dados(Long id) {
 		return this.dao.load(id);
 	}
+
+	@Delete
+	@Path("/usuarios/{id}")
+	public void remove(Long id) {
+		User user = this.dao.load(id);
+		this.dao.remove(user);
+		this.result.redirectTo(IndexController.class).index();
+	}
+
+	@Get
+	@Path("/usuarios")
+	public List<User> list() {
+		return this.dao.list();
+	}
+	
 }

@@ -12,6 +12,7 @@ import br.com.caelum.vraptor.Validator;
 
 import com.angojug.ControllerTestSetUp;
 import com.angojug.CreateTestDataBase;
+import com.angojug.IndexController;
 import com.angojug.dao.UserDAO;
 import com.angojug.model.User;
 
@@ -42,7 +43,7 @@ public class UsuariosControllerTest extends TestCase {
 
 	@Test
 	public void testCreateController() {
-		assertTrue(true);
+		assertNotNull(controller);
 	}
 
 	@Test
@@ -130,6 +131,33 @@ public class UsuariosControllerTest extends TestCase {
 		assertEquals("josemar da costa magalhaes", u.getNome());
 		assertEquals("josemarjobs@gmail.com", u.getEmail());
 		assertEquals("04028910", u.getPassword());
+	}
+
+	@Test
+	public void testDeleteUsuario() {
+		User user = criaUsuarioValido("Bill Gates", "gates@ms.com");
+		controller.adiciona(user);
+		int count = dao.list().size();
+		assertNotNull("ID NULL significa que o usuario não foi criado",
+				user.getId());
+		IndexController index = mock(IndexController.class);
+
+		when(result.redirectTo(IndexController.class)).thenReturn(index);
+
+		controller.remove(user.getId());
+		assertEquals("O controlador não removeu usuario", count - 1, dao.list()
+				.size());
+	}
+
+	public void testListarUsuariosCadastrados() {
+		int count = dao.list().size();
+		User u1 = criaUsuarioValido("marilinda da costa", "marilinda@soft.com");
+		User u2 = criaUsuarioValido("crua da costa", "cruz@soft.com");
+		controller.adiciona(u1);
+		controller.adiciona(u2);
+		assertEquals("Usuarios não listados corretamente", count + 2,
+				controller.list().size());
+
 	}
 
 	private User criaUsuarioValido(String nome, String email) {

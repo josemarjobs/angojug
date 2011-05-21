@@ -1,5 +1,7 @@
 package com.angojug.model;
 
+import java.util.Calendar;
+
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
@@ -9,6 +11,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
 public class Comentario {
@@ -28,6 +32,9 @@ public class Comentario {
 
 	@ManyToOne
 	private Postagem postagem;
+
+	@Temporal(TemporalType.TIMESTAMP)
+	private Calendar data;
 
 	public String getCorpo() {
 		return corpo;
@@ -56,8 +63,17 @@ public class Comentario {
 	public Long getId() {
 		return id;
 	}
+
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	public void setData(Calendar data) {
+		this.data = data;
+	}
+
+	public Calendar getData() {
+		return data;
 	}
 
 }

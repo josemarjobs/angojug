@@ -17,6 +17,6 @@ public class IndexController {
 	@Get
 	@Path("/")
 	public void index() {
-		result.include("home", "AngoJUG, por Josemar Jobs");
+		
 	}
 }

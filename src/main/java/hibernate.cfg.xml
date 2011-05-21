@@ -16,5 +16,6 @@
 		<mapping class="com.angojug.model.User" />
 		<mapping class="com.angojug.model.Postagem" />
 		<mapping class="com.angojug.model.Comentario" />
+		<mapping class="com.angojug.model.Tag"/>
 	</session-factory>
 </hibernate-configuration>
