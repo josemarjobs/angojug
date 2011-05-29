@@ -8,7 +8,12 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
-
+import javax.persistence.UniqueConstraint;
+/**
+ * 
+ * @author josemarjobs
+ * @since 15/05/2011 23:40
+ */
 @Entity
 public class Tag {
 

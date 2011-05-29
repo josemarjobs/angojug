@@ -15,13 +15,20 @@ import com.angojug.CreateTestDataBase;
 import com.angojug.IndexController;
 import com.angojug.dao.UserDAO;
 import com.angojug.model.User;
+import com.angojug.model.UsuarioWeb;
 
+/**
+ * 
+ * @author josemarjobs
+ * @since 15/05/2011 23:40
+ */
 public class UsuariosControllerTest extends TestCase {
 
 	private Validator validator;
 	private Result result;
 	private UserDAO dao;
 	private UsuariosController controller;
+	private UsuarioWeb usuarioWeb;
 
 	public static junit.framework.Test suite() {
 		TestSuite suite = new TestSuite();
@@ -33,9 +40,10 @@ public class UsuariosControllerTest extends TestCase {
 	protected void setUp() throws Exception {
 		validator = mock(Validator.class);
 		result = mock(Result.class);
-		controller = new UsuariosController(result, dao, validator);
+		usuarioWeb = mock(UsuarioWeb.class);
+		controller = new UsuariosController(result, dao, validator, usuarioWeb);
 		dao = new UserDAO(CreateTestDataBase.getSessionFactory().openSession());
-		controller = new UsuariosController(result, dao, validator);
+		controller = new UsuariosController(result, dao, validator, usuarioWeb);
 		when(validator.onErrorRedirectTo(controller)).thenReturn(controller);
 
 		when(result.redirectTo(controller)).thenReturn(controller);

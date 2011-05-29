@@ -1,5 +1,5 @@
 (function(win) {
-	var whiteSpaceRe = /^\s*|\s*$/g,
+	var whiteSpaceRe = /^\s*|\s*$/g
 		undefined, isRegExpBroken = 'B'.replace(/A(.)|B/, '$1') === '$1';
 
 	var tinymce = {

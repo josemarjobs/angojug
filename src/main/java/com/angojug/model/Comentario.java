@@ -1,5 +1,6 @@
 package com.angojug.model;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 import javax.persistence.AttributeOverride;
@@ -13,6 +14,7 @@ import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 @Entity
 public class Comentario {
@@ -34,7 +36,10 @@ public class Comentario {
 	private Postagem postagem;
 
 	@Temporal(TemporalType.TIMESTAMP)
-	private Calendar data;
+	private Calendar data = Calendar.getInstance();
+
+	@Transient
+	private String created_at;
 
 	public String getCorpo() {
 		return corpo;
@@ -74,6 +79,24 @@ public class Comentario {
 
 	public Calendar getData() {
 		return data;
+	}
+
+	public String getDataDeCriacao() {
+		SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+		return format.format(this.data.getTime());
+	}
+
+	public String getCreated_at() {
+		this.created_at = getDataDeCriacao();
+		return this.created_at;
+	}
+
+	public String getSite() {
+		if (this.comentador.getSite().startsWith("http://")) {
+			return this.comentador.getSite();
+		} else {
+			return "http://" + this.comentador.getSite();
+		}
 	}
 
 }

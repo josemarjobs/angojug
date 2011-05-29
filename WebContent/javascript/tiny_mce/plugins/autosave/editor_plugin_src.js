@@ -47,7 +47,7 @@
 	// Setup constants to help the compressor to reduce script size
 	var PLUGIN_NAME = 'autosave',
 		RESTORE_DRAFT = 'restoredraft',
-		TRUE = true,
+		TRUE = true
 		undefined,
 		unloadHandlerAdded,
 		Dispatcher = tinymce.util.Dispatcher;

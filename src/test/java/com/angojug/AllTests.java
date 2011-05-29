@@ -1,5 +1,6 @@
 package com.angojug;
 
+import com.angojug.controller.ComentariosControllerTest;
 import com.angojug.controller.PostsControllerTest;
 import com.angojug.controller.UsuariosControllerTest;
 
@@ -12,6 +13,7 @@ public class AllTests extends TestSuite {
 		TestSuite suite = new TestSuite();
 		suite.addTestSuite(UsuariosControllerTest.class);
 		suite.addTestSuite(PostsControllerTest.class);
+		suite.addTestSuite(ComentariosControllerTest.class);
 		return new ControllerTestSetUp(suite);
 	}
 }

@@ -1,5 +1,6 @@
 package com.angojug.model;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -19,6 +20,12 @@ import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 
+/**
+ * 
+ * @author josemarjobs
+ * @since 15/05/2011 23:40
+ */
+
 @Entity
 public class Postagem {
 
@@ -37,7 +44,7 @@ public class Postagem {
 	private User autor;
 
 	@Temporal(TemporalType.TIMESTAMP)
-	private Calendar data;
+	private Calendar data = Calendar.getInstance();
 
 	@Enumerated(EnumType.STRING)
 	private ComentarioStatus comentarioStatus;
@@ -48,6 +55,9 @@ public class Postagem {
 
 	@Transient
 	private String marcadores;
+
+	@Transient
+	private String created_at;
 
 	public Postagem() {
 	}
@@ -126,6 +136,21 @@ public class Postagem {
 
 	public String getMarcadores() {
 		return marcadores;
+	}
+
+	public void addComentario(Comentario c) {
+		this.comentarios.add(c);
+		c.setPostagem(this);
+	}
+
+	public String getDataDeCriacao() {
+		SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+		return format.format(this.data.getTime());
+	}
+
+	public String getCreated_at() {
+		this.created_at = getDataDeCriacao();
+		return this.created_at;
 	}
 
 }

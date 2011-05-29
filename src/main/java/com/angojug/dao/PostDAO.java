@@ -5,10 +5,17 @@ import java.util.List;
 
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.criterion.Order;
 
 import br.com.caelum.vraptor.ioc.Component;
 
 import com.angojug.model.Postagem;
+
+/**
+ * 
+ * @author josemarjobs
+ * @since 15/05/2011 23:40
+ */
 
 @Component
 public class PostDAO extends GenericDAO<Postagem> {
@@ -31,7 +38,8 @@ public class PostDAO extends GenericDAO<Postagem> {
 	@Override
 	public List<Postagem> list() {
 		Transaction tx = this.session.beginTransaction();
-		List<Postagem> posts = (List<Postagem>) this.session.createCriteria(Postagem.class)
+		List<Postagem> posts = (List<Postagem>) this.session
+				.createCriteria(Postagem.class).addOrder(Order.desc("data"))
 				.list();
 		return posts;
 	}

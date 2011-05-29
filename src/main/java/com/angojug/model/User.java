@@ -1,5 +1,6 @@
 package com.angojug.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -22,10 +23,6 @@ import org.hibernate.validator.constraints.Email;
 
 @Entity
 public class User {
-
-	// @NotNull(message = "Não pode ficar vazio")
-	// @Size(min = 3, max = 20, message =
-	// "Deve ter mais 3 letras e menos que 20")
 
 	@Id
 	@GeneratedValue
@@ -56,7 +53,7 @@ public class User {
 	private String avatar;
 
 	@OneToMany(mappedBy = "autor", cascade = { CascadeType.ALL })
-	private List<Postagem> postagens;
+	private List<Postagem> postagens= new ArrayList<Postagem>();
 
 	public User(String nome, String email, String password) {
 		this.nome = nome;
@@ -157,6 +154,19 @@ public class User {
 
 	public String getAvatar() {
 		return avatar;
+	}
+
+	public void setPostagens(List<Postagem> postagens) {
+		this.postagens = postagens;
+	}
+
+	public List<Postagem> getPostagens() {
+		return postagens;
+	}
+
+	public void addPost(Postagem post) {
+		this.postagens.add(post);
+		post.setAutor(this);
 	}
 
 }

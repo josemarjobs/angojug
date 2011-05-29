@@ -14,4 +14,8 @@ public class ControllerTestSetUp extends TestSetup {
 		CreateTestDataBase.create();
 	}
 
+	@Override
+	protected void tearDown() throws Exception {
+		CreateTestDataBase.getSessionFactory().close();
+	}
 }

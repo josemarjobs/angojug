@@ -1,5 +1,5 @@
 <div class="comentarios"><!--INICIO COMENTATRIOS-->
-	<h2>Comentários</h2>
+	<h2 id="comments">Comentários</h2>
 	<c:forEach var="comentario" items="${postagem.comentarios }">
 	
 		<div class="comentario"><!--INICIO COMENTATRIO-->
@@ -7,8 +7,8 @@
 				<img src="images/angoJUG.png" alt="photo" />
 			</div><!--FIM IMAGE-->
 			<div class="comentado"><!--INICIO COMENTADO-->
-				<p class="dados"><a href="${comentario.comentador.site }">
-					${comentario.comentador.nome }</a> comentou no dia 12/05/2011</p>
+				<p class="dados"><a href="${comentario.site }">
+					${comentario.comentador.nome }</a> comentou no dia ${comentario.created_at }</p>
 				<p>
 					${comentario.corpo }
 				</p>

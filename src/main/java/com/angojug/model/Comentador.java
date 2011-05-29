@@ -1,15 +1,27 @@
 package com.angojug.model;
 
 import javax.persistence.Embeddable;
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.Email;
 
 @Embeddable
 public class Comentador {
 
+	@NotNull
 	private String nome;
+	@NotNull
+	@Email
 	private String email;
 	private String site;
 
 	public Comentador() {
+	}
+
+	public Comentador(String nome, String email, String site) {
+		this.nome = nome;
+		this.email = email;
+		this.site = site;
 	}
 
 	public String getNome() {

@@ -1,5 +1,6 @@
 package com.angojug.controller;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 
 import javax.validation.ConstraintViolationException;
@@ -21,6 +22,13 @@ import com.angojug.dao.PostDAO;
 import com.angojug.model.ComentarioStatus;
 import com.angojug.model.Postagem;
 import com.angojug.model.User;
+import com.angojug.model.UsuarioWeb;
+
+/**
+ * 
+ * @author josemarjobs
+ * @since 15/05/2011 23:40
+ */
 
 public class PostsControllerTest extends TestCase {
 
@@ -28,6 +36,7 @@ public class PostsControllerTest extends TestCase {
 	private Validator validator;
 	private Result result;
 	private PostDAO dao;
+	private UsuarioWeb usuarioWeb;
 
 	public static junit.framework.Test suite() {
 		TestSuite suite = new TestSuite();
@@ -39,8 +48,9 @@ public class PostsControllerTest extends TestCase {
 	protected void setUp() throws Exception {
 		validator = mock(Validator.class);
 		result = mock(Result.class);
+		usuarioWeb = mock(UsuarioWeb.class);
 		dao = new PostDAO(CreateTestDataBase.getSessionFactory().openSession());
-		controller = new PostsController(result, dao, validator);
+		controller = new PostsController(result, dao, validator, usuarioWeb);
 		when(validator.onErrorRedirectTo(controller)).thenReturn(controller);
 		when(result.redirectTo(controller)).thenReturn(controller);
 	}
@@ -54,7 +64,9 @@ public class PostsControllerTest extends TestCase {
 	public void testCriaPostagemComDadosValidos() {
 		int count = this.dao.list().size();
 		Postagem p = createValidPost();
-		p.setAutor(createUser("bill gates", "gates@ms.com"));
+		User user = createUser("bill gates", "gates@ms.com");
+		p.setAutor(user);
+		usuarioWeb.login(user);
 		controller.adiciona(p);
 		assertNotNull(p.getId());
 		assertEquals(count + 1, this.dao.list().size());
@@ -64,7 +76,11 @@ public class PostsControllerTest extends TestCase {
 	public void testNaoCriaPostSemTitulo() {
 		Postagem post = createValidPost();
 		post.setTitulo(null);
-		post.setAutor(createUser("josemar jobs", "josemar@jobs.com"));
+		User user = createUser("josemar jobs", "josemar@jobs.com");
+		post.setAutor(user);
+		usuarioWeb.login(user);
+		when(usuarioWeb.getUser().getId()).thenReturn(user.getId());
+		post.setAutor(user);
 		try {
 			controller.adiciona(post);
 			fail("Não pode criar post sem titulo");
@@ -76,7 +92,10 @@ public class PostsControllerTest extends TestCase {
 	@Test
 	public void testNaoCriaPostSemPeloMenosUmaTag() {
 		Postagem post = createValidPost();
-		post.setAutor(createUser("josemar jobs1", "jobs@josemar.com"));
+		User user = createUser("josemar jobs1", "jobs@josemar.com");
+		post.setAutor(user);
+		usuarioWeb.login(user);
+		when(usuarioWeb.getUser().getId()).thenReturn(user.getId());
 		post.setMarcadores(null);
 		try {
 			controller.adiciona(post);
@@ -89,6 +108,9 @@ public class PostsControllerTest extends TestCase {
 	@Test
 	public void testNaoCriaPostSemAutor() {
 		Postagem post = createValidPost();
+		User user = createUser("post sem autor", "post@autor.com");
+		usuarioWeb.login(user);
+		when(usuarioWeb.getUser().getId()).thenReturn(user.getId());
 		try {
 			controller.adiciona(post);
 			fail("Não pode criar post sem Autor");

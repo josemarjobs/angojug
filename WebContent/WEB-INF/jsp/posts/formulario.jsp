@@ -44,19 +44,23 @@
 	        }
 	});
 	</script>
-	
+	<h1>angoJug - Nova Postagem</h1>
 	<form action="<c:url value="/posts" />" method="post" >
 		<div class="field">
 			<label for="post.titulo">Titulo</label>
 			<input type="text" name="post.titulo" value="${post.titulo }" id="post.titulo">
 		</div>
-		<div class="content">	
-	    	<textarea name="post.corpo" style="width:100%; height:600px;">${post.corpo }</textarea>
-	    </div>
-	    <div class="field">
+		
+		<div class="field">
 			<label for="tags">Tags</label>
-			<input type="text" name="tags" value="" id="tags">
+			<input type="text" name="post.marcadores" value="" id="marcadores">
 		</div>
+		
+		<div class="field">	
+			<label for="post">Post</label>
+	    	<textarea name="post.corpo">${post.corpo }</textarea>
+	    </div>
+	    
 	    <div class="button">
 	    	<input type="submit" name="submit" value="Enviar" id="submit" />
 	    	<input type="reset" name="reset" value="Limpar" class="limpar"/>

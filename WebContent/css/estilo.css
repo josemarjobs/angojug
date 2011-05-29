@@ -409,9 +409,9 @@ a:hover{
 	margin:50px 0 0 200px;
 }
 #conteudo #centro #login .field{
-	margin:10px;
+	margin:4px;
 	overflow:hidden;
-	padding-bottom:10px;
+	padding-bottom:5px;
 	border-bottom:1px solid #E0E0E0;
 }
 #conteudo #centro #login .field p{
@@ -426,10 +426,12 @@ a:hover{
 	width: 100px;
 	text-align: left;
 	margin: 4px 10px 2px 10px;
+	font-size:15px;
 }
 #conteudo #centro #login .field input{
 	margin: 2px;
 	width: 300px;
+	font-size:14px;
 }
 #conteudo #centro #login .field input.check{
 	margin-left:120px;
@@ -749,25 +751,24 @@ a:hover{
 #conteudo #centro .comentarios .comentario{
 	border-bottom:1px solid white;	
 	overflow:hidden;
-	padding:5px 5px 0px 5px;
-	margin-bottom:20px;
-	
+	padding:2px 2px 0px 2px;
+	margin-bottom:10px;
 }
 
 #conteudo #centro .comentarios .comentario .image{
-	width:100px;
-	height:100px;
+	width:80px;
+	height:80px;
 	float:left;
 	margin-right:10px;
 }
 #conteudo #centro .comentarios .comentario .image img{
-	width:80px;
-	height:80px;
+	width:70px;
+	height:70px;
 }
 
 #conteudo #centro .comentarios .comentario .comentado{
 	width:600px;
-	height:100px;
+	
 	float:left;
 }
 #conteudo #centro .comentarios .comentario .comentado p{
@@ -781,16 +782,38 @@ a:hover{
 }
 
 /********************POSTAR************************************/
+#conteudo #postar{
+	padding:0 10px;
+}
+#conteudo #postar form{
+	margin-top: 20px;
+}
 #conteudo #postar .field{
-	width:650px;
-	margin:10px auto;
+	width:1100px;
+	margin:2px 0;
+	padding-bottom:2px;
 	overflow:hidden;
 }
-#conteudo #postar .content{
-	width:1000px;
-	margin:0 auto;
-	overflow:hidden;
+
+#conteudo #postar .field label{
+	float: left;
+	width: 50px;
+	text-align: left;
+	margin: 4px 10px 2px 10px;
+	font-size:17px;
 }
+#conteudo #postar .field input{
+	margin: 2px;
+	width: 980px;
+	font-size:15px;
+}
+#conteudo #postar .field textarea{
+	margin: 2px;
+	width: 980px;
+	height: 600px;
+}
+
+/*
 #conteudo #postar .field label{
 	float: left;
 	
@@ -807,6 +830,8 @@ a:hover{
 	font-size:18px;
 }
 
+*/
+
 #conteudo #postar .button{
 	margin:10px;
 	overflow:hidden;
@@ -815,7 +840,7 @@ a:hover{
 	text-align: right;
 	background-color:#C7C7C7;
 	border:1px solid #6C6C6C;
-	margin: 2px 0 2px 40px;
+	margin: 2px 0 2px 60px;
 	padding:2px 10px;
 }
 #conteudo #postar .button input:hover{

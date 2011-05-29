@@ -10,10 +10,13 @@ import br.com.caelum.vraptor.Put;
 import br.com.caelum.vraptor.Resource;
 import br.com.caelum.vraptor.Result;
 import br.com.caelum.vraptor.Validator;
+import br.com.caelum.vraptor.validator.ValidationMessage;
 
 import com.angojug.IndexController;
 import com.angojug.dao.UserDAO;
+import com.angojug.model.Postagem;
 import com.angojug.model.User;
+import com.angojug.model.UsuarioWeb;
 
 /**
  * 
@@ -28,11 +31,13 @@ public class UsuariosController {
 	private final Result result;
 	private final UserDAO dao;
 	private final Validator validator;
+	private final UsuarioWeb usuarioWeb;
 
-	public UsuariosController(Result result, UserDAO dao, Validator validator) {
+	public UsuariosController(Result result, UserDAO dao, Validator validator, UsuarioWeb usuarioWeb) {
 		this.result = result;
 		this.dao = dao;
 		this.validator = validator;
+		this.usuarioWeb = usuarioWeb;
 	}
 
 	@Get
@@ -47,6 +52,7 @@ public class UsuariosController {
 		validator.validate(user);
 		validator.onErrorRedirectTo(this).formulario();
 		this.dao.adiciona(user);
+		this.usuarioWeb.login(user);
 		this.result.redirectTo(this).dados(user.getId());
 	}
 
@@ -85,4 +91,36 @@ public class UsuariosController {
 		return this.dao.list();
 	}
 	
+	@Get
+	@Path("/login")
+	public void login(){
+		
+	}
+	
+	@Post
+	@Path("/usuarios/autentica")
+	public void autentica(User user){
+		User carregado = this.dao.carrega(user);
+		if (carregado == null) {
+			validator.add(new ValidationMessage("Login e/ou senha incorretos",
+					"user.email"));
+		}
+		validator.onErrorUsePageOf(this).login();
+		this.usuarioWeb.login(carregado);
+		this.result.redirectTo(IndexController.class).index();		
+	}
+	
+	@Get
+	@Path("/logout")
+	public void logout() {
+		this.usuarioWeb.logout();
+		this.result.redirectTo(IndexController.class).index();
+	}
+	
+	@Get
+	@Path("/usuarios/{id}/postagens")
+	public List<Postagem> postagens(Long id){
+		User user = this.dao.load(id);
+		return user.getPostagens();
+	}
 }
