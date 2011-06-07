@@ -4,7 +4,7 @@
 	
 		<div class="comentario"><!--INICIO COMENTATRIO-->
 			<div class="image"><!--INICIO IMAGE-->
-				<img src="images/angoJUG.png" alt="photo" />
+				<img src="${comentario.comentador.image }" alt="photo" />
 			</div><!--FIM IMAGE-->
 			<div class="comentado"><!--INICIO COMENTADO-->
 				<p class="dados"><a href="${comentario.site }">

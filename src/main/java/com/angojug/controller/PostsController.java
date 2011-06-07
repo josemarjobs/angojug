@@ -53,14 +53,8 @@ public class PostsController {
 		post.setTags(getTags(post.getMarcadores()));
 		this.validator.validate(post);
 		this.validator.onErrorRedirectTo(this).formulario();
-		// SUBSTITUIR POR USUARIO LOGADO
-		Session session = HibernateUtil.getSessionFactory().openSession();
-		UserDAO userDao = new UserDAO(session);
-		User user = userDao.load(usuarioWeb.getUser().getId());
-		user.addPost(post);
-		userDao.atualizar(user);
-		session.close();
-
+		post.setAutor(usuarioWeb.getUser());
+		this.dao.adiciona(post);
 		this.result.redirectTo(this).show(post.getId());
 	}
 
@@ -80,10 +74,11 @@ public class PostsController {
 		} else {
 			List<Tag> tags = new ArrayList<Tag>();
 			for (String tag : marcadores.split(",")) {
-				Tag t = tagDao.existeTag(new Tag(tag.trim().replaceAll(" ", "_")));
+				Tag t = tagDao.existeTag(new Tag(tag.trim()
+						.replaceAll(" ", "_")));
 				if (t == null) {
 					tags.add(new Tag(tag.trim().replaceAll(" ", "_")));
-				}else{
+				} else {
 					tags.add(t);
 				}
 			}

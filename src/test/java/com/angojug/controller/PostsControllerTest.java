@@ -37,6 +37,7 @@ public class PostsControllerTest extends TestCase {
 	private Result result;
 	private PostDAO dao;
 	private UsuarioWeb usuarioWeb;
+	private static int i = 0;
 
 	public static junit.framework.Test suite() {
 		TestSuite suite = new TestSuite();
@@ -49,6 +50,12 @@ public class PostsControllerTest extends TestCase {
 		validator = mock(Validator.class);
 		result = mock(Result.class);
 		usuarioWeb = mock(UsuarioWeb.class);
+
+		User user = createUser("josemar_" + ++i + "_jobs", "josemar_" + i
+				+ "@msn.com");
+		usuarioWeb.login(user);
+		when(usuarioWeb.getUser()).thenReturn(user);
+
 		dao = new PostDAO(CreateTestDataBase.getSessionFactory().openSession());
 		controller = new PostsController(result, dao, validator, usuarioWeb);
 		when(validator.onErrorRedirectTo(controller)).thenReturn(controller);
@@ -64,10 +71,9 @@ public class PostsControllerTest extends TestCase {
 	public void testCriaPostagemComDadosValidos() {
 		int count = this.dao.list().size();
 		Postagem p = createValidPost();
-		User user = createUser("bill gates", "gates@ms.com");
-		p.setAutor(user);
-		usuarioWeb.login(user);
+
 		controller.adiciona(p);
+
 		assertNotNull(p.getId());
 		assertEquals(count + 1, this.dao.list().size());
 	}
@@ -76,11 +82,6 @@ public class PostsControllerTest extends TestCase {
 	public void testNaoCriaPostSemTitulo() {
 		Postagem post = createValidPost();
 		post.setTitulo(null);
-		User user = createUser("josemar jobs", "josemar@jobs.com");
-		post.setAutor(user);
-		usuarioWeb.login(user);
-		when(usuarioWeb.getUser().getId()).thenReturn(user.getId());
-		post.setAutor(user);
 		try {
 			controller.adiciona(post);
 			fail("Não pode criar post sem titulo");
@@ -92,29 +93,11 @@ public class PostsControllerTest extends TestCase {
 	@Test
 	public void testNaoCriaPostSemPeloMenosUmaTag() {
 		Postagem post = createValidPost();
-		User user = createUser("josemar jobs1", "jobs@josemar.com");
-		post.setAutor(user);
-		usuarioWeb.login(user);
-		when(usuarioWeb.getUser().getId()).thenReturn(user.getId());
 		post.setMarcadores(null);
 		try {
 			controller.adiciona(post);
 			fail("Não pode criar post sem Tags");
 		} catch (ConstraintViolationException e) {
-			assertTrue(true);
-		}
-	}
-
-	@Test
-	public void testNaoCriaPostSemAutor() {
-		Postagem post = createValidPost();
-		User user = createUser("post sem autor", "post@autor.com");
-		usuarioWeb.login(user);
-		when(usuarioWeb.getUser().getId()).thenReturn(user.getId());
-		try {
-			controller.adiciona(post);
-			fail("Não pode criar post sem Autor");
-		} catch (org.hibernate.exception.ConstraintViolationException e) {
 			assertTrue(true);
 		}
 	}
