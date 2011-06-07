@@ -24,3 +24,9 @@ public class MD5Util {
 }
 //String email = "someone@somewhere.com";
 //String hash = MD5Util.md5Hex(email);
+//Gravatar gravatar = new Gravatar();
+//gravatar.setSize(50);
+//gravatar.setRating(GravatarRating.GENERAL_AUDIENCES);
+//gravatar.setDefaultImage(GravatarDefaultImage.IDENTICON);
+//String url = gravatar.getUrl("iHaveAn@email.com");
+//byte[] jpg = gravatar.download("info@ralfebert.de");
