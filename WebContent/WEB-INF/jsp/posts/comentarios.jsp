@@ -1,10 +1,11 @@
+<%@ taglib uri="http://kindelbit.com/jgravatar" prefix="g"%>
 <div class="comentarios"><!--INICIO COMENTATRIOS-->
 	<h2 id="comments">Comentários</h2>
 	<c:forEach var="comentario" items="${postagem.comentarios }">
 	
 		<div class="comentario"><!--INICIO COMENTATRIO-->
 			<div class="image"><!--INICIO IMAGE-->
-				<img src="${comentario.comentador.image }" alt="photo" />
+				<g:gravatar email="${comentario.comentador.email }" size="200" defaultImage="mm" rating="g" />
 			</div><!--FIM IMAGE-->
 			<div class="comentado"><!--INICIO COMENTADO-->
 				<p class="dados"><a href="${comentario.site }">

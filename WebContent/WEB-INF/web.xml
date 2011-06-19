@@ -25,8 +25,8 @@
 	</filter-mapping>
 	<jsp-config>
 		<jsp-property-group>
-			<description>goodbuy</description>
-			<display-name>Good Buy</display-name>
+			<description>angojug</description>
+			<display-name>AngoJUG</display-name>
 			<url-pattern>*.jsp</url-pattern>
 			<include-prelude>/header.jspf</include-prelude>
 			<include-coda>/footer.jspf</include-coda>
