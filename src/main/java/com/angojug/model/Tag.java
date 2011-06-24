@@ -9,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.UniqueConstraint;
+
 /**
  * 
  * @author josemarjobs
@@ -20,7 +21,7 @@ public class Tag {
 	@Id
 	@GeneratedValue
 	private Long id;
-	
+
 	private String nome;
 
 	@ManyToMany(mappedBy = "tags")
@@ -29,7 +30,7 @@ public class Tag {
 	public Tag(String tag) {
 		setNome(tag);
 	}
-	
+
 	public Tag() {
 	}
 

@@ -4,20 +4,28 @@ import java.io.Serializable;
 import java.util.List;
 
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
 
 import br.com.caelum.vraptor.ioc.Component;
 
 import com.angojug.model.Tag;
-import com.angojug.model.User;
 
 @Component
-public class TagDAO extends GenericDAO<Tag> {
+public class TagDAO implements Dao<Tag> {
 
 	private Session session;
+	private Transaction tx;
+
+	public void beginTransation() {
+		this.tx = this.session.beginTransaction();
+	}
+
+	public void commit() {
+		this.tx.commit();
+	}
 
 	public TagDAO(Session session) {
-		super(session);
 		this.session = session;
 	}
 
@@ -30,12 +38,37 @@ public class TagDAO extends GenericDAO<Tag> {
 	public List<Tag> list() {
 		return this.session.createCriteria(Tag.class).list();
 	}
-	
+
 	public Tag existeTag(Tag tag) {
 		Tag encontrado = (Tag) this.session.createCriteria(Tag.class)
-				.add(Restrictions.eq("nome", tag.getNome()))
-				.uniqueResult();
+				.add(Restrictions.eq("nome", tag.getNome())).uniqueResult();
 		return encontrado;
+	}
+	
+	@Override
+	public void adiciona(Tag tag) {
+		// Transaction tx = session.beginTransaction();
+		session.save(tag);
+		// tx.commit();
+	}
+
+	@Override
+	public void remove(Tag tag) {
+		Transaction tx = session.beginTransaction();
+		session.delete(tag);
+		tx.commit();
+	}
+
+	@Override
+	public void atualizar(Tag tag) {
+		Transaction tx = session.beginTransaction();
+		session.update(tag);
+		tx.commit();
+	}
+
+	@Override
+	public void refresh(Tag tag) {
+		session.refresh(tag);
 	}
 
 }

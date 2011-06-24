@@ -18,13 +18,21 @@ import com.angojug.model.Postagem;
  */
 
 @Component
-public class PostDAO extends GenericDAO<Postagem> {
+public class PostDAO implements Dao<Postagem> {
 
 	private final Session session;
+	private Transaction tx;
 
 	public PostDAO(Session session) {
-		super(session);
 		this.session = session;
+	}
+
+	public void beginTransation() {
+		this.tx = this.session.beginTransaction();
+	}
+
+	public void commit() {
+		this.tx.commit();
 	}
 
 	@Override
@@ -42,6 +50,38 @@ public class PostDAO extends GenericDAO<Postagem> {
 				.createCriteria(Postagem.class).addOrder(Order.desc("data"))
 				.list();
 		return posts;
+	}
+
+	@Override
+	public void adiciona(Postagem post) {
+		// Transaction tx = session.beginTransaction();
+		session.save(post);
+		// tx.commit();
+	}
+
+	public void adiciona(Postagem post, boolean commit) {
+		Transaction tx = session.beginTransaction();
+		session.save(post);
+		tx.commit();
+	}
+
+	@Override
+	public void remove(Postagem post) {
+		Transaction tx = session.beginTransaction();
+		session.delete(post);
+		tx.commit();
+	}
+
+	@Override
+	public void atualizar(Postagem post) {
+		Transaction tx = session.beginTransaction();
+		session.update(post);
+		tx.commit();
+	}
+
+	@Override
+	public void refresh(Postagem post) {
+		session.refresh(post);
 	}
 
 }

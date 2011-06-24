@@ -17,12 +17,20 @@ import com.angojug.model.User;
  * @since 13/05/2011:22:43
  */
 @Component
-public class UserDAO extends GenericDAO<User> {
+public class UserDAO implements Dao<User> {
 
 	private final Session session;
+	private Transaction tx;
+
+	public void beginTransation() {
+		this.tx = this.session.beginTransaction();
+	}
+
+	public void commit() {
+		this.tx.commit();
+	}
 
 	public UserDAO(Session session) {
-		super(session);
 		this.session = session;
 	}
 
@@ -50,11 +58,36 @@ public class UserDAO extends GenericDAO<User> {
 	}
 
 	public User carrega(User usuario) {
-		User carregado = (User) this.session
-				.createCriteria(User.class)
+		User carregado = (User) this.session.createCriteria(User.class)
 				.add(Restrictions.eq("email", usuario.getEmail()))
 				.add(Restrictions.eq("password", usuario.getPassword()))
 				.uniqueResult();
 		return carregado;
+	}
+	
+	@Override
+	public void adiciona(User tag) {
+	//	Transaction tx = session.beginTransaction();
+		session.save(tag);
+	//	tx.commit();
+	}
+
+	@Override
+	public void remove(User tag) {
+		Transaction tx = session.beginTransaction();
+		session.delete(tag);
+		tx.commit();
+	}
+
+	@Override
+	public void atualizar(User tag) {
+		Transaction tx = session.beginTransaction();
+		session.update(tag);
+		tx.commit();
+	}
+
+	@Override
+	public void refresh(User tag) {
+		session.refresh(tag);
 	}
 }

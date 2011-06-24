@@ -3,6 +3,8 @@ package com.angojug.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.validation.ConstraintViolationException;
+
 import org.hibernate.Session;
 
 import br.com.caelum.vraptor.Get;
@@ -32,13 +34,15 @@ public class PostsController {
 	private final PostDAO dao;
 	private final Validator validator;
 	private final UsuarioWeb usuarioWeb;
+	private final TagDAO tagDao;
 
 	public PostsController(Result result, PostDAO dao, Validator validator,
-			UsuarioWeb usuarioWeb) {
+			UsuarioWeb usuarioWeb, TagDAO tagDao) {
 		this.result = result;
 		this.dao = dao;
 		this.validator = validator;
 		this.usuarioWeb = usuarioWeb;
+		this.tagDao = tagDao;
 	}
 
 	@Get
@@ -50,11 +54,13 @@ public class PostsController {
 	@Post
 	@Path("/posts")
 	public void adiciona(Postagem post) {
-		post.setTags(getTags(post.getMarcadores()));
 		this.validator.validate(post);
 		this.validator.onErrorRedirectTo(this).formulario();
+		dao.beginTransation();
 		post.setAutor(usuarioWeb.getUser());
 		this.dao.adiciona(post);
+		getTags(post.getMarcadores(), post);
+		dao.commit();
 		this.result.redirectTo(this).show(post.getId());
 	}
 
@@ -62,6 +68,26 @@ public class PostsController {
 	@Path("/posts/{id}")
 	public Postagem show(Long id) {
 		return this.dao.load(id);
+	}
+
+	private void getTags(String marcadores, Postagem post) {
+		if (marcadores == null) {
+			throw new ConstraintViolationException(
+					"Nenhuma Tag foi epecificada", null);
+		} else {
+			for (String tagName : marcadores.split(",")) {
+				Tag tag = new Tag(tagName.trim().replaceAll(" ", "_"));
+				Tag t = tagDao.existeTag(tag);
+				if (t == null) {
+					tagDao.beginTransation();
+					tagDao.adiciona(tag);
+					tagDao.commit();
+					post.addTag(tag);
+				} else {
+					post.addTag(t);
+				}
+			}
+		}
 	}
 
 	private List<Tag> getTags(String marcadores) {

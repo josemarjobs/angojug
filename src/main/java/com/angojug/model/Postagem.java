@@ -49,8 +49,7 @@ public class Postagem {
 	@Enumerated(EnumType.STRING)
 	private ComentarioStatus comentarioStatus;
 
-	@ManyToMany(cascade = { CascadeType.ALL })
-	@NotNull
+	@ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
 	private List<Tag> tags = new ArrayList<Tag>();
 
 	@Transient
@@ -151,6 +150,11 @@ public class Postagem {
 	public String getCreated_at() {
 		this.created_at = getDataDeCriacao();
 		return this.created_at;
+	}
+	
+	public void addTag(Tag tag){
+		this.getTags().add(tag);
+		tag.getPosts().add(this);
 	}
 
 }

@@ -6,16 +6,25 @@ import org.hibernate.Transaction;
 public abstract class GenericDAO<T> implements Dao<T> {
 
 	private final Session session;
+	private Transaction tx;
 
 	public GenericDAO(Session session) {
 		this.session = session;
 	}
 
+	public void beginTransation() {
+		this.tx = this.session.beginTransaction();
+	}
+
+	public void commit() {
+		this.tx.commit();
+	}
+
 	@Override
 	public void adiciona(T bean) {
-		Transaction tx = session.beginTransaction();
+	//	Transaction tx = session.beginTransaction();
 		session.save(bean);
-		tx.commit();
+	//	tx.commit();
 	}
 
 	@Override

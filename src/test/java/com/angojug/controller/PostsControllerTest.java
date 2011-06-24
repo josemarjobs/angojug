@@ -19,6 +19,7 @@ import br.com.caelum.vraptor.Validator;
 import com.angojug.ControllerTestSetUp;
 import com.angojug.CreateTestDataBase;
 import com.angojug.dao.PostDAO;
+import com.angojug.dao.TagDAO;
 import com.angojug.model.ComentarioStatus;
 import com.angojug.model.Postagem;
 import com.angojug.model.User;
@@ -36,6 +37,7 @@ public class PostsControllerTest extends TestCase {
 	private Validator validator;
 	private Result result;
 	private PostDAO dao;
+	private TagDAO tagDao;
 	private UsuarioWeb usuarioWeb;
 	private static int i = 0;
 
@@ -57,7 +59,8 @@ public class PostsControllerTest extends TestCase {
 		when(usuarioWeb.getUser()).thenReturn(user);
 
 		dao = new PostDAO(CreateTestDataBase.getSessionFactory().openSession());
-		controller = new PostsController(result, dao, validator, usuarioWeb);
+		tagDao = new TagDAO(CreateTestDataBase.getSessionFactory().openSession());
+		controller = new PostsController(result, dao, validator, usuarioWeb, tagDao);
 		when(validator.onErrorRedirectTo(controller)).thenReturn(controller);
 		when(result.redirectTo(controller)).thenReturn(controller);
 	}

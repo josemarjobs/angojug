@@ -11,12 +11,21 @@ import com.angojug.model.Comentario;
 import br.com.caelum.vraptor.ioc.Component;
 
 @Component
-public class ComentarioDAO extends GenericDAO<Comentario> {
+public class ComentarioDAO implements Dao<Comentario> {
 
 	private final Session session;
 
+	private Transaction tx;
+
+	public void beginTransation() {
+		this.tx = this.session.beginTransaction();
+	}
+
+	public void commit() {
+		this.tx.commit();
+	}
+
 	public ComentarioDAO(Session session) {
-		super(session);
 		this.session = session;
 	}
 
@@ -38,4 +47,29 @@ public class ComentarioDAO extends GenericDAO<Comentario> {
 		return comentarios;
 	}
 
+	@Override
+	public void adiciona(Comentario comentario) {
+		Transaction tx = session.beginTransaction();
+		session.save(comentario);
+		tx.commit();
+	}
+
+	@Override
+	public void remove(Comentario comentario) {
+		Transaction tx = session.beginTransaction();
+		session.delete(comentario);
+		tx.commit();
+	}
+
+	@Override
+	public void atualizar(Comentario comentario) {
+		Transaction tx = session.beginTransaction();
+		session.update(comentario);
+		tx.commit();
+	}
+
+	@Override
+	public void refresh(Comentario comentario) {
+		session.refresh(comentario);
+	}
 }

@@ -1,5 +1,8 @@
 package com.angojug.factory;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 
@@ -15,9 +18,10 @@ import br.com.caelum.vraptor.ioc.RequestScoped;
  * @author josemarjobs
  * @since 14/05/2011:17:40
  * 
- * Criados de Session, classe que permite a criação de session do hibernate
- * automaticamente pelo VRaptor, e assim o VRaptor vai gerencia todo o ciclo de vida, 
- * fazer a injeção das dependencias, e injetar sessions onde for preciso.
+ *        Criados de Session, classe que permite a criação de session do
+ *        hibernate automaticamente pelo VRaptor, e assim o VRaptor vai gerencia
+ *        todo o ciclo de vida, fazer a injeção das dependencias, e injetar
+ *        sessions onde for preciso.
  */
 
 @Component
@@ -26,6 +30,7 @@ public class CriadorDeSession implements ComponentFactory<Session> {
 
 	private final SessionFactory factory;
 	private Session session;
+	List<Session> sessions;
 
 	public CriadorDeSession(SessionFactory factory) {
 		this.factory = factory;
@@ -36,12 +41,15 @@ public class CriadorDeSession implements ComponentFactory<Session> {
 	 */
 	@PostConstruct
 	public void abre() {
-		this.session = this.factory.openSession();
+		sessions = new ArrayList<Session>();
 	}
 
 	@Override
 	public Session getInstance() {
-		return this.session;
+		this.session = this.factory.openSession();
+		sessions.add(session);
+		System.out.println("Mais uma session criada");
+		return session;
 	}
 
 	/**
@@ -49,7 +57,9 @@ public class CriadorDeSession implements ComponentFactory<Session> {
 	 */
 	@PreDestroy
 	public void fecha() {
-		this.session.close();
+		for (Session s : sessions) {
+			s.close();
+		}
 	}
 
 }
