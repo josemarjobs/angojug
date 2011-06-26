@@ -59,9 +59,12 @@ public class PostsControllerTest extends TestCase {
 		when(usuarioWeb.getUser()).thenReturn(user);
 
 		dao = new PostDAO(CreateTestDataBase.getSessionFactory().openSession());
-		tagDao = new TagDAO(CreateTestDataBase.getSessionFactory().openSession());
-		controller = new PostsController(result, dao, validator, usuarioWeb, tagDao);
+		tagDao = new TagDAO(CreateTestDataBase.getSessionFactory()
+				.openSession());
+		controller = new PostsController(result, dao, validator, usuarioWeb,
+				tagDao);
 		when(validator.onErrorRedirectTo(controller)).thenReturn(controller);
+		when(validator.onErrorUsePageOf(controller)).thenReturn(controller);
 		when(result.redirectTo(controller)).thenReturn(controller);
 	}
 
@@ -103,6 +106,28 @@ public class PostsControllerTest extends TestCase {
 		} catch (ConstraintViolationException e) {
 			assertTrue(true);
 		}
+	}
+
+	@Test
+	public void testEditPost() {
+		int count = this.dao.list().size();
+		Postagem p = createValidPost();
+
+		controller.adiciona(p);
+
+		assertNotNull(p.getId());
+		assertEquals(count + 1, this.dao.list().size());
+
+		Postagem p2 = dao.load(p.getId());
+		p2.setTitulo("Titulo Alterado");
+		p2.setCorpo("corpo tbm alterado");
+		controller.atualiza(p2);
+		
+		Postagem p3 = controller.show(p2.getId());
+		assertEquals(p3.getId(), p.getId());
+		assertEquals("Titulo não foi alterado", "Titulo Alterado", p3.getTitulo());
+		assertEquals("Corpo não foi alterado","corpo tbm alterado", p3.getCorpo());
+		assertEquals("a quantidade de posts errada",count + 1, this.dao.list().size());
 	}
 
 	private Postagem createValidPost() {

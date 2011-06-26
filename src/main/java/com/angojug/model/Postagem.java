@@ -52,7 +52,6 @@ public class Postagem {
 	@ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
 	private List<Tag> tags = new ArrayList<Tag>();
 
-	@Transient
 	private String marcadores;
 
 	@Transient

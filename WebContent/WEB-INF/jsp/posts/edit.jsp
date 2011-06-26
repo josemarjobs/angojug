@@ -44,24 +44,24 @@
 	        }
 	});
 	</script>
-	<h1>angoJug - Nova Postagem</h1>
+	<h1>angoJug - Editar Post</h1>
 	<form action="<c:url value="/posts" />" method="post" >
 		<div class="field">
+			<input type="hidden" name="post.id" value="${postagem.id }"/>
 			<label for="post.titulo">Titulo</label>
-			<input type="text" name="post.titulo" value="${post.titulo }" id="post.titulo">
+			<input type="text" name="post.titulo" value="${postagem.titulo }" id="post.titulo">
 		</div>
-		
 		<div class="field">
 			<label for="tags">Tags</label>
-			<input type="text" name="post.marcadores" value="${post.marcadores }" id="marcadores">
+			<input type="text" name="post.marcadores" value="${postagem.marcadores }" id="marcadores">
 		</div>
-		
 		<div class="field">	
 			<label for="post">Post</label>
-	    	<textarea name="post.corpo">${post.corpo }</textarea>
+	    	<textarea name="post.corpo">${postagem.corpo }</textarea>
 	    </div>
 	    
 	    <div class="button">
+	    	<input type="hidden" name="_method" value="put" />
 	    	<input type="submit" name="submit" value="Enviar" id="submit" />
 	    	<input type="reset" name="reset" value="Limpar" class="limpar"/>
 	    </div>

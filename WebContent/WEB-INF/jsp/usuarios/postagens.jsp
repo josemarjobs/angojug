@@ -11,14 +11,21 @@
 				<th>Titulo</th>
 				<th>Data</th>
 				<th></th>
+				<th></th>
 			</tr>
 			<c:forEach var="post" items="${postagemList }" varStatus="i">
 				<tr class="mensagem ${ i.count % 2 == 0 ? 'even' : 'odd' }">
-					<td class="email"><img src="<c:url value="/images/post.png" />" alt="mensagem lida" /></td>
+					<td class="email"><img src="<c:url value="/images/mensagem.png" />" alt="mensagem lida" /></td>
 					<td><a href="<c:url value="/posts/${post.id}" />">${post.titulo }</a></td>
 					<td><a href="<c:url value="/posts/${post.id}" />">${post.created_at }</a></td>
 					<td class="email">
-						<a href=""><img src="<c:url value="/images/delete.png" />" alt="eliminar mensagem"/></a>
+						<a href="<c:url value="/posts/${post.id }/edit" />"><img src="<c:url value="/images/edit.png" />" class="postOption"  title="Editar Post" alt="editar post"/></a>
+					</td>
+					<td class="email">
+						<form action="<c:url value="/posts/${post.id }" />" method="post">
+							<input type="hidden" name="_method" value="delete">
+							<input type="submit" value="" title="eliminar post" class="delete_icon">
+						</form>	
 					</td>
 				</tr>
 			</c:forEach>

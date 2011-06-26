@@ -645,6 +645,11 @@ a:hover{
 #conteudo #centro #mensagens table tr.mensagem td{
 	padding:4px 0;
 }
+input[type=submit].delete_icon{
+	border:1px solid white;
+	width:25px;
+	background:url(../images/delete.png) no-repeat center center;
+}
 #conteudo #centro #mensagens table tr.mensagem td.email{
 	width:20px;
 }
@@ -661,6 +666,11 @@ a:hover{
 #conteudo #centro #mensagens table tr.even{
 	background:#F2F2F2;
 }
+
+.postOption{
+	padding: 0 2px;
+}
+
 #conteudo #centro #legenda{
 	margin-top:20px;
 	background:#F2F2F2;

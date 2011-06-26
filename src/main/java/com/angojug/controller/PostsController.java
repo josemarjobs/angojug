@@ -10,16 +10,16 @@ import org.hibernate.Session;
 import br.com.caelum.vraptor.Get;
 import br.com.caelum.vraptor.Path;
 import br.com.caelum.vraptor.Post;
+import br.com.caelum.vraptor.Put;
 import br.com.caelum.vraptor.Resource;
 import br.com.caelum.vraptor.Result;
 import br.com.caelum.vraptor.Validator;
+import br.com.caelum.vraptor.validator.ValidationMessage;
 
 import com.angojug.dao.PostDAO;
 import com.angojug.dao.TagDAO;
-import com.angojug.dao.UserDAO;
 import com.angojug.model.Postagem;
 import com.angojug.model.Tag;
-import com.angojug.model.User;
 import com.angojug.model.UsuarioWeb;
 import com.angojug.util.HibernateUtil;
 
@@ -54,11 +54,49 @@ public class PostsController {
 	@Post
 	@Path("/posts")
 	public void adiciona(Postagem post) {
-		this.validator.validate(post);
-		this.validator.onErrorRedirectTo(this).formulario();
+		if (post.getTitulo() == null || post.getTitulo() == "") {
+			validator.add(new ValidationMessage("titulo invalido",
+					"post.titulo"));
+		}
+		if (post.getMarcadores() == null || post.getMarcadores() == "") {
+			validator.add(new ValidationMessage(
+					"adicione uma tag, pelo menos!", "post.marcadores"));
+		}
+		if (post.getCorpo() == null || post.getCorpo() == "") {
+			validator.add(new ValidationMessage("post invalido", "post.corpo"));
+		}
+
+		// this.validator.validate(post);
+		this.validator.onErrorUsePageOf(this).formulario();
 		dao.beginTransation();
 		post.setAutor(usuarioWeb.getUser());
 		this.dao.adiciona(post);
+		getTags(post.getMarcadores(), post);
+		dao.commit();
+		this.result.redirectTo(this).show(post.getId());
+	}
+
+	@Get
+	@Path("/posts/{id}/edit")
+	public Postagem edit(Long id){
+		return this.dao.load(id);
+	}
+	
+	@Put
+	@Path("/posts")
+	public void atualiza(Postagem post) {
+		if (post.getTitulo() == null || post.getTitulo() == "") {
+			validator.add(new ValidationMessage("titulo invalido",
+					"post.titulo"));
+		}
+		if (post.getCorpo() == null || post.getCorpo() == "") {
+			validator.add(new ValidationMessage("post invalido", "post.corpo"));
+		}
+		
+		this.validator.onErrorUsePageOf(this).edit(post.getId());
+		dao.beginTransation();
+		post.setAutor(usuarioWeb.getUser());
+		this.dao.atualizar(post);
 		getTags(post.getMarcadores(), post);
 		dao.commit();
 		this.result.redirectTo(this).show(post.getId());

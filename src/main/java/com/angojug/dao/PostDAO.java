@@ -74,9 +74,7 @@ public class PostDAO implements Dao<Postagem> {
 
 	@Override
 	public void atualizar(Postagem post) {
-		Transaction tx = session.beginTransaction();
 		session.update(post);
-		tx.commit();
 	}
 
 	@Override
