@@ -44,7 +44,10 @@ public class Postagem {
 	private User autor;
 
 	@Temporal(TemporalType.TIMESTAMP)
-	private Calendar data = Calendar.getInstance();
+	private Calendar data = Calendar.getInstance();//depois retirar isso
+
+	@Temporal(TemporalType.TIMESTAMP)
+	private Calendar ultimaAtualizacao = Calendar.getInstance();
 
 	@Enumerated(EnumType.STRING)
 	private ComentarioStatus comentarioStatus;
@@ -150,8 +153,8 @@ public class Postagem {
 		this.created_at = getDataDeCriacao();
 		return this.created_at;
 	}
-	
-	public void addTag(Tag tag){
+
+	public void addTag(Tag tag) {
 		this.getTags().add(tag);
 		tag.getPosts().add(this);
 	}

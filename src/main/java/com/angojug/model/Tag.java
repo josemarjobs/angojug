@@ -1,14 +1,12 @@
 package com.angojug.model;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
-import javax.persistence.UniqueConstraint;
 
 /**
  * 
@@ -25,7 +23,7 @@ public class Tag {
 	private String nome;
 
 	@ManyToMany(mappedBy = "tags")
-	private List<Postagem> posts = new ArrayList<Postagem>();
+	private Set<Postagem> posts = new HashSet<Postagem>();
 
 	public Tag(String tag) {
 		setNome(tag);
@@ -50,11 +48,11 @@ public class Tag {
 		this.nome = nome;
 	}
 
-	public List<Postagem> getPosts() {
+	public Set<Postagem> getPosts() {
 		return posts;
 	}
 
-	public void setPosts(List<Postagem> posts) {
+	public void setPosts(Set<Postagem> posts) {
 		this.posts = posts;
 	}
 

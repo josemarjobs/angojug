@@ -1,10 +1,4 @@
-<div id="postar">
-	<script type="text/javascript" src="<c:url value="/javascript/tiny_mce/tiny_mce.js" /> "></script>
-	<script type="text/javascript" src="<c:url value="/javascript/tiny_mce/tiny_mce_popup.js" /> "></script>
-	<script type="text/javascript" src="<c:url value="/javascript/tiny_mce/tiny_mce_src.js" /> "></script>
-		
-	<script type="text/javascript">
-	tinyMCE.init({
+tinyMCE.init({
 	        // General options
 	        mode : "textareas",
 	        theme : "advanced",
@@ -43,27 +37,3 @@
 	                staffid : "991234"
 	        }
 	});
-	</script>
-	<h1>angoJug - Nova Postagem</h1>
-	<form action="<c:url value="/posts" />" method="post" >
-		<div class="field">
-			<label for="post.titulo">Titulo</label>
-			<input type="text" name="post.titulo" value="${post.titulo }" id="post.titulo">
-		</div>
-		
-		<div class="field">
-			<label for="tags">Tags</label>
-			<input type="text" name="post.marcadores" value="${post.marcadores }" id="marcadores">
-		</div>
-		
-		<div class="field">	
-			<label for="post">Post</label>
-	    	<textarea name="post.corpo">${post.corpo }</textarea>
-	    </div>
-	    
-	    <div class="button">
-	    	<input type="submit" name="submit" value="Enviar" id="submit" />
-	    	<input type="reset" name="reset" value="Limpar" class="limpar"/>
-	    </div>
-	</form>
-</div>

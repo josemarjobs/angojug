@@ -7,7 +7,6 @@ body{
 	color:#333333;	
     text-rendering: optimizeLegibility;
 }
-
 span.error{
 	color:red;
 	font-size:13px;

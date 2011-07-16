@@ -1,8 +1,6 @@
 package com.angojug.factory;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Logger;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
@@ -42,14 +40,15 @@ public class CriadorDeSession implements ComponentFactory<Session> {
 	 */
 	@PostConstruct
 	public void abre() {
-		sessions = new ArrayList<Session>();
+		session = factory.openSession();
+		System.out.println("Criada uma Session");
 	}
 
 	@Override
 	public Session getInstance() {
-		this.session = this.factory.openSession();
-		sessions.add(session);
-		System.out.println("+++++++> Mais uma session criada");
+		// this.session = this.factory.openSession();
+		// sessions.add(session);
+		// System.out.println("+++++++> Mais uma session criada");
 		return session;
 	}
 
@@ -58,10 +57,12 @@ public class CriadorDeSession implements ComponentFactory<Session> {
 	 */
 	@PreDestroy
 	public void fecha() {
-		for (Session s : sessions) {
-			s.close();
-			System.out.println("+++++++> Eliminada uma session");
-		}
+		// for (Session s : sessions) {
+		// s.close();
+		// System.out.println("+++++++> Eliminada uma session");
+		// }
+		System.out.println("Fechando a session");
+		this.session.close();
 	}
 
 }

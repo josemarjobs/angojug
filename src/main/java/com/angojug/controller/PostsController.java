@@ -1,12 +1,10 @@
 package com.angojug.controller;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Calendar;
 
 import javax.validation.ConstraintViolationException;
 
-import org.hibernate.Session;
-
+import br.com.caelum.vraptor.Delete;
 import br.com.caelum.vraptor.Get;
 import br.com.caelum.vraptor.Path;
 import br.com.caelum.vraptor.Post;
@@ -18,10 +16,10 @@ import br.com.caelum.vraptor.validator.ValidationMessage;
 
 import com.angojug.dao.PostDAO;
 import com.angojug.dao.TagDAO;
+import com.angojug.interceptor.Transational;
 import com.angojug.model.Postagem;
 import com.angojug.model.Tag;
 import com.angojug.model.UsuarioWeb;
-import com.angojug.util.HibernateUtil;
 
 /**
  * 
@@ -53,6 +51,7 @@ public class PostsController {
 
 	@Post
 	@Path("/posts")
+	@Transational
 	public void adiciona(Postagem post) {
 		if (post.getTitulo() == null || post.getTitulo() == "") {
 			validator.add(new ValidationMessage("titulo invalido",
@@ -68,20 +67,21 @@ public class PostsController {
 
 		// this.validator.validate(post);
 		this.validator.onErrorUsePageOf(this).formulario();
-		dao.beginTransation();
+		
 		post.setAutor(usuarioWeb.getUser());
+		post.setData(Calendar.getInstance());
 		this.dao.adiciona(post);
 		getTags(post.getMarcadores(), post);
-		dao.commit();
+		
 		this.result.redirectTo(this).show(post.getId());
 	}
 
 	@Get
 	@Path("/posts/{id}/edit")
-	public Postagem edit(Long id){
+	public Postagem edit(Long id) {
 		return this.dao.load(id);
 	}
-	
+
 	@Put
 	@Path("/posts")
 	public void atualiza(Postagem post) {
@@ -92,10 +92,10 @@ public class PostsController {
 		if (post.getCorpo() == null || post.getCorpo() == "") {
 			validator.add(new ValidationMessage("post invalido", "post.corpo"));
 		}
-		
 		this.validator.onErrorUsePageOf(this).edit(post.getId());
 		dao.beginTransation();
 		post.setAutor(usuarioWeb.getUser());
+		
 		this.dao.atualizar(post);
 		getTags(post.getMarcadores(), post);
 		dao.commit();
@@ -106,6 +106,14 @@ public class PostsController {
 	@Path("/posts/{id}")
 	public Postagem show(Long id) {
 		return this.dao.load(id);
+	}
+
+	@Delete
+	@Path("/posts/{post.id}")
+	public void remove(Postagem post) {
+		this.dao.remove(post);
+		this.result.redirectTo(UsuariosController.class).postagens(
+				usuarioWeb.getUser().getId());
 	}
 
 	private void getTags(String marcadores, Postagem post) {
@@ -128,26 +136,4 @@ public class PostsController {
 		}
 	}
 
-	private List<Tag> getTags(String marcadores) {
-		Session session = HibernateUtil.getSessionFactory().openSession();
-		TagDAO tagDao = new TagDAO(session);
-
-		if (marcadores == null) {
-			session.close();
-			return null;
-		} else {
-			List<Tag> tags = new ArrayList<Tag>();
-			for (String tag : marcadores.split(",")) {
-				Tag t = tagDao.existeTag(new Tag(tag.trim()
-						.replaceAll(" ", "_")));
-				if (t == null) {
-					tags.add(new Tag(tag.trim().replaceAll(" ", "_")));
-				} else {
-					tags.add(t);
-				}
-			}
-			session.close();
-			return tags;
-		}
-	}
 }

@@ -77,6 +77,9 @@ public class PostDAO implements Dao<Postagem> {
 		session.update(post);
 	}
 
+	public Postagem merge(Postagem post){
+		return (Postagem) session.merge(post);
+	}
 	@Override
 	public void refresh(Postagem post) {
 		session.refresh(post);

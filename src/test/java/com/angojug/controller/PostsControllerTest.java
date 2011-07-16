@@ -1,6 +1,8 @@
 package com.angojug.controller;
 
-import java.util.ArrayList;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+
 import java.util.Calendar;
 
 import javax.validation.ConstraintViolationException;
@@ -11,7 +13,6 @@ import junit.framework.TestSuite;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.junit.Test;
-import static org.mockito.Mockito.*;
 
 import br.com.caelum.vraptor.Result;
 import br.com.caelum.vraptor.Validator;
@@ -66,6 +67,7 @@ public class PostsControllerTest extends TestCase {
 		when(validator.onErrorRedirectTo(controller)).thenReturn(controller);
 		when(validator.onErrorUsePageOf(controller)).thenReturn(controller);
 		when(result.redirectTo(controller)).thenReturn(controller);
+		
 	}
 
 	@Test
@@ -130,6 +132,21 @@ public class PostsControllerTest extends TestCase {
 		assertEquals("a quantidade de posts errada",count + 1, this.dao.list().size());
 	}
 
+//	@Test
+//	public void testRemovePost(){
+//		int count = this.dao.list().size();
+//		Postagem p = createValidPost();
+//
+//		controller.adiciona(p);
+//
+//		assertNotNull(p.getId());
+//		assertEquals("Adicionou o post correctamente", count + 1, this.dao.list().size());
+//
+//		Postagem p2 = dao.load(p.getId());
+//		controller.remove(p2);
+//		assertEquals("Não removeu [quantidade de posts errada]", count, this.dao.list().size());
+//	}
+	
 	private Postagem createValidPost() {
 		Postagem post = new Postagem();
 		post.setTitulo("Primeiro Post & tbm post de Test");
