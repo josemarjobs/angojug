@@ -10,6 +10,11 @@
 		<script type="text/javascript" src="<c:url value="/javascripts/jquery-1.3.2.min.js"/>"></script>
 		<!-- <fmt:setLocale value="pt_br"/>  -->
 		<link rel="shortcut icon" href="<c:url value="/images/angojugIcon.png" />" />
+		<link href="<c:url value="/css/hl/shCore.css"/>" rel="stylesheet" type="text/css" media="screen" />
+		<link href="<c:url value="/css/hl/shThemeDefault.css"/>" rel="stylesheet" type="text/css" media="screen" />
+		
+		<script type="text/javascript" src="<c:url value="/javascript/hl/shCore.js" /> "></script>
+		<script type="text/javascript" src="<c:url value="/javascript/hl/shBrushJava.js" /> "></script>
 		</head>
 	<body id="corpo">
 	

@@ -3,5 +3,8 @@
 		Powered By: <a href="">SoftSystems Corp - &copy; 2011</a>
 		</div>
 	</div><!--FIM RODAPE-->
+	<script type="text/javascript" charset="utf-8">
+		SyntaxHighlighter.all()
+	</script>
 </body>
 </html>
