@@ -7,6 +7,12 @@ body{
 	color:#333333;	
     text-rendering: optimizeLegibility;
 }
+
+div#banner{
+	margin-top:4px;
+	height: 150px;	
+}
+
 span.error{
 	color:red;
 	font-size:13px;
@@ -29,7 +35,7 @@ h1, h2, h3{
 	margin:0;
 }
 h1{
-	font:normal 30px Georgia, Tahoma, Arial;
+	font:normal 25px Georgia, Tahoma, Arial;
 }
 h2, h3{
 	font:normal 20px Georgia, Tahoma, Arial;
@@ -213,7 +219,7 @@ a:hover{
 	overflow:hidden;
 }
 #conteudo #centro{
-	margin:5px;
+	margin:5px 0 0 10px ;
 	width:870px;
 	min-height:500px;
 	float:left;
@@ -222,6 +228,13 @@ a:hover{
 #conteudo #centro #menu_logado{
 	background-color:#E9E9E9;
 	overflow:hidden;
+}
+#conteudo #centro #menu_logado span a.close{
+	float: left;
+}
+#conteudo #centro #menu_logado span a.close img{
+	margin-top: 4px;
+	margin-left: 2px;
 }
 #conteudo #centro #menu_logado ul{
 	padding:0;
@@ -263,11 +276,14 @@ a:hover{
 	margin:0;
 }
 #conteudo #centro #posts .post h1.titulo{
-	font:normal 30px Georgia, Tahoma, Arial;
+	font:bold 25px Georgia, Tahoma, Arial;
 	border-bottom:1px solid #B4B4B4;
+	padding-left: 10px;
+	margin-top: 10px
 }
 #conteudo #centro #posts .post h1.titulo a{
 	text-decoration:none;
+	color:#02223C;
 }
 #conteudo #centro #posts .post h1.titulo a:hover{
 	color:#757575;
@@ -291,6 +307,7 @@ a:hover{
 	border:1px solid #E5E5E5;
 	margin-top:20px;
 	overflow:hidden;
+	background: #F2F2F2;
 }
 #conteudo #centro #posts .post .tags_comentarios span.tags{
 	float:left;

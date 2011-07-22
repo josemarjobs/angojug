@@ -1,7 +1,5 @@
 package com.angojug.interceptor;
 
-import java.util.logging.Logger;
-
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 

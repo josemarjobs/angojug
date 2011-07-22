@@ -67,12 +67,12 @@ public class PostsController {
 
 		// this.validator.validate(post);
 		this.validator.onErrorUsePageOf(this).formulario();
-		
+
 		post.setAutor(usuarioWeb.getUser());
 		post.setData(Calendar.getInstance());
 		this.dao.adiciona(post);
 		getTags(post.getMarcadores(), post);
-		
+
 		this.result.redirectTo(this).show(post.getId());
 	}
 
@@ -95,7 +95,7 @@ public class PostsController {
 		this.validator.onErrorUsePageOf(this).edit(post.getId());
 		dao.beginTransation();
 		post.setAutor(usuarioWeb.getUser());
-		
+
 		this.dao.atualizar(post);
 		getTags(post.getMarcadores(), post);
 		dao.commit();
@@ -124,16 +124,21 @@ public class PostsController {
 			for (String tagName : marcadores.split(",")) {
 				Tag tag = new Tag(tagName.trim().replaceAll(" ", "_"));
 				Tag t = tagDao.existeTag(tag);
-				if (t == null) {
-					tagDao.beginTransation();
+				if(t == null){
 					tagDao.adiciona(tag);
-					tagDao.commit();
 					post.addTag(tag);
-				} else {
+				}else{
 					post.addTag(t);
 				}
+//				if (t == null) {
+//					tagDao.beginTransation();
+//					tagDao.adiciona(tag);
+//					tagDao.commit();
+//					post.addTag(tag);
+//				} else {
+//					post.addTag(t);
+//				}
 			}
 		}
 	}
-
 }

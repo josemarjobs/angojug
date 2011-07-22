@@ -5,6 +5,9 @@
 			<%@ include file="menu_logado.jsp" %>
 		</c:if>				
 	</div>
+	<div id="banner">
+		<img alt="banner" src="<c:url value="/images/banner.jpg" />" />
+	</div>
 	<div id="posts"><!--INICIO POSTS-->
 		
 		<c:forEach var="post" items="${posts }">
